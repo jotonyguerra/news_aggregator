@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>News Aggregator</title>
+  </head>
+
+  <body>
+    <h2> Article </h2>
+    <% if @articles %>
+      <% @articles.each do |art| %>
+      <li>
+        <%= art %>
+      </li>
+      <%end%>
+    <%end%>
+    <a href="/articles/new">Submit New Article</a>
+  </body>
+
+</html>
