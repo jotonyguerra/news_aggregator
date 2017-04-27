@@ -9,11 +9,11 @@
     <% if @articles %>
       <% @articles.each do |art| %>
       <li>
-        <%= art %>
+      Title:<%=art[0]%>  <b>URL:<a href="<%= art[1] %>"><%=art[1]%></a></b>   Description: <%= art[2]%> </p>
       </li>
       <%end%>
     <%end%>
-    <a href="/articles/new">Submit New Article</a>
+    <br><a href="/articles/new">Submit New Article</a>
   </body>
 
 </html>

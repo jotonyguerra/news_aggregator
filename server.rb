@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'pry'
 require 'sinatra/flash'
+require 'csv'
 enable :sessions
 
 set :bind, '0.0.0.0'  # bind to all interfaces
@@ -10,7 +11,7 @@ get '/' do
 end
 
 get '/articles' do
-  @articles = File.readlines('text.txt')
+  @articles = CSV.read('text.csv')
   erb :index
 end
 
@@ -19,9 +20,11 @@ get '/articles/new' do
 end
 
 post '/articles/new' do
+
   @articles_title = params['title']
   @url = params['URL']
   @description = params['description']
+
 
   if @articles_title == ""
     flash[:error]="Invalid Title"
@@ -33,8 +36,8 @@ post '/articles/new' do
     flash[:error]="Invalid description"
     redirect '/articles/new'
   else
-    File.open('text.txt', 'a') do |file|
-      file.puts(["#{@articles_title} #{@url} #{@description}"])
+    CSV.open('text.csv', 'a') do |file|
+      file << [@articles_title, @url, @description]
     end
     redirect '/articles'
   end
